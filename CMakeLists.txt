@@ -3,4 +3,6 @@ project(sparse_matrix)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(sparse_matrix main.cpp)
+add_executable(sparse_matrix main.cpp
+        list.cpp
+        list.hpp)
