@@ -235,6 +235,7 @@ int main() {
         delete[] res_B[i];
         delete[] S[i];
         delete[] res_S[i];
+        A[i] = res_A[i] = B[i] = res_B[i] = S[i] = res_S[i] = nullptr;
     }
     delete[] A;
     delete[] res_A;
@@ -242,12 +243,15 @@ int main() {
     delete[] res_B;
     delete[] S;
     delete[] res_S;
+    A = res_A = B = res_B = S = res_S = nullptr;
+
     delete A_AN;
     delete A_D;
     delete B_AN;
     delete B_D;
     delete S_AN;
     delete S_D;
+    A_AN = A_D = B_AN = B_D = S_AN = S_D = nullptr;
 
     return 0;
 }
