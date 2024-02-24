@@ -8,7 +8,7 @@
 #define K_1 3  // koef of sparsity
 #define K_2 2  // koef of sparsity
 
-void compress(int **matrix, List *AN, List *D) {
+void compress(int **&matrix, List *&AN, List *&D) {
     AN->add(0);
     AN->cur->num = matrix[0][0];
     D->add(0);
@@ -27,7 +27,7 @@ void compress(int **matrix, List *AN, List *D) {
     }
 }
 
-void unpack(int **matrix, List *AN, List *D) {
+void unpack(int **&matrix, List *&AN, List *&D) {
     AN->cur = AN->first;
     D->cur = D->first;
     matrix[0][0] = AN->cur->num;
@@ -48,7 +48,7 @@ void unpack(int **matrix, List *AN, List *D) {
     }
 }
 
-void printMatrix(int **matrix, const std::string &name) {
+void printMatrix(int **&matrix, const std::string &name) {
     std::cout << "Matrix " << name << ":\n";
     for (int i = 0; i < R; i++) {
         for (int j = 0; j < C; j++) {
@@ -60,7 +60,7 @@ void printMatrix(int **matrix, const std::string &name) {
     std::cout << "\n";
 }
 
-void sumMatrices(List *A_AN, List *A_D, List *B_AN, List *B_D, List *S_AN, List *S_D) {
+void sumMatrices(List *&A_AN, List *&A_D, List *&B_AN, List *&B_D, List *&S_AN, List *&S_D) {
     int Ak, Bk, n = 0, i = 0;
     A_AN->cur = A_AN->first;
     B_AN->cur = B_AN->first;
@@ -201,18 +201,18 @@ int main() {
     unpack(res_S, S_AN, S_D);
     printMatrix(res_S, "unpacked_S = A + B");
 
-    int unmatch = 0;
+    int notMatch = 0;
     for (int i = 0; i < R; i++) {
-        if (unmatch)
+        if (notMatch)
             break;
         for (int j = 0; j < C; j++) {
             if (S[i][j] != res_S[i][j]) {
-                unmatch++;
+                notMatch++;
                 break;
             }
         }
     }
-    if (unmatch)
+    if (notMatch)
         std::cout << "Error." << std::endl;
     else {
         std::cout << "Matrices are equal." << std::endl;

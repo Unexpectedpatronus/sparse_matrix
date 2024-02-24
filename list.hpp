@@ -42,7 +42,7 @@ public:
     List &operator=(const List &other);
 };
 
-void print_List(List *sp, const std::string &name);
+void print_List(List *&sp, const std::string &name);
 
 List *sum_list(List *sp, List *sp1);
 

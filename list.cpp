@@ -109,7 +109,7 @@ int List::get_size() const {
     return size;
 }
 
-void print_List(List *sp, const std::string &name) {
+void print_List(List *&sp, const std::string &name) {
     sp->cur = sp->first;
     while (sp->cur) {
         std::cout << name << " size = " << sp->get_size() << " index = "
