@@ -147,26 +147,39 @@ int main() {
     S_AN = new List();
     S_D = new List();
 
-//    for (int i = 0; i < R; i++) {
-//        for (int j = 0; j < C; j++) {
-//            if ((i + j) % K_1 == 0)
-//                A[i][j] = i * j + i + j;
-//            else A[i][j] = 0;
-//        }
-//    }
-//    for (int i = 0; i < R; i++) {
-//        for (int j = 0; j < C; j++) {
-//            if ((i + j) % K_2 == 0)
-//                B[i][j] = i * j + i + j;
-//            else B[i][j] = 0;
-//        }
-//    }
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            if ((i + j) % K_1 == 0)
+                A[i][j] = i * j + i + j;
+            else A[i][j] = 0;
+
+            if ((i + j) % K_2 == 0)
+                B[i][j] = i * j + i + j;
+            else B[i][j] = 0;
+        }
+    }
+
+
+    std::ofstream outA("A.txt");
+    std::ofstream outB("B.txt");
+    if (outA.is_open() && outB.is_open()) {
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                outA << A[i][j] << " ";
+                outB << B[i][j] << " ";
+            }
+            outA << std::endl;
+            outB << std::endl;
+        }
+    }
+    outA.close();
+    outB.close();
 
     std::ifstream inA("A.txt");
     std::ifstream inB("B.txt");
     if (inA.is_open() && inB.is_open()) {
         for (int i = 0; i < R; i++) {
-            for (int j = 0; j < R; j++) {
+            for (int j = 0; j < C; j++) {
                 inA >> A[i][j];
                 inB >> B[i][j];
             }
@@ -199,7 +212,7 @@ int main() {
 
     sumMatrices(A_AN, A_D, B_AN, B_D, S_AN, S_D);
     unpack(res_S, S_AN, S_D);
-    printMatrix(res_S, "unpacked_S = A + B");
+    printMatrix(res_S, "unpacked_S = res_A + res_B");
 
     int notMatch = 0;
     for (int i = 0; i < R; i++) {
@@ -219,7 +232,7 @@ int main() {
         std::ofstream outS("S.txt");
         if (outS.is_open()) {
             for (int i = 0; i < R; i++) {
-                for (int j = 0; j < R; j++) {
+                for (int j = 0; j < C; j++) {
                     outS << std::setw(2) << res_S[i][j] << " ";
                 }
                 outS << std::endl;
@@ -235,7 +248,6 @@ int main() {
         delete[] res_B[i];
         delete[] S[i];
         delete[] res_S[i];
-        A[i] = res_A[i] = B[i] = res_B[i] = S[i] = res_S[i] = nullptr;
     }
     delete[] A;
     delete[] res_A;
@@ -243,7 +255,6 @@ int main() {
     delete[] res_B;
     delete[] S;
     delete[] res_S;
-    A = res_A = B = res_B = S = res_S = nullptr;
 
     delete A_AN;
     delete A_D;
@@ -251,7 +262,6 @@ int main() {
     delete B_D;
     delete S_AN;
     delete S_D;
-    A_AN = A_D = B_AN = B_D = S_AN = S_D = nullptr;
 
     return 0;
 }
